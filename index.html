@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Happy 8/3 Hanna</title>
+  <style>
+    :root {
+      --app-max-width: 430px;
+      --iphone15-width: 390px;
+      --iphone15-height: 844px;
+      --safe-top: max(54px, env(safe-area-inset-top));
+      --safe-bottom: max(22px, env(safe-area-inset-bottom));
+      --bg1: #fffafd;
+      --bg2: #fff1f7;
+      --card: rgba(255,255,255,0.84);
+      --text: #634e5c;
+      --muted: #8f7785;
+      --primary: #ff90b4;
+      --primary-2: #ffc7d8;
+      --accent: #ffe3eb;
+      --shadow: 0 22px 60px rgba(255, 144, 180, 0.18);
+      --radius: 30px;
+      
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background: radial-gradient(circle at top left, #fffefe 0%, #fff8fb 32%, #fff0f5 100%);
+      overflow-x: hidden;
+    }
+
+    body {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      min-height: 100dvh;
+    }
+
+    .petals, .hearts-layer {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .petal {
+      position: absolute;
+      top: -12vh;
+      width: 18px;
+      height: 18px;
+      background: linear-gradient(135deg, #ffd7e4, #ffb0c8);
+      border-radius: 70% 0 70% 0;
+      opacity: 0.72;
+      animation: fall linear infinite;
+      filter: blur(0.2px);
+    }
+
+    @keyframes fall {
+      0% { transform: translate3d(0, -10vh, 0) rotate(0deg); }
+      100% { transform: translate3d(var(--drift), 120vh, 0) rotate(360deg); }
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 18px;
+      opacity: 0;
+      animation: heartFloat 2.4s ease-out forwards;
+      filter: drop-shadow(0 6px 18px rgba(255,144,180,0.22));
+      will-change: transform, opacity;
+    }
+
+    @keyframes heartFloat {
+      0% { opacity: 0; transform: translateY(28px) scale(0.78); }
+      14% { opacity: 1; }
+      100% { opacity: 0; transform: translateY(-180px) translateX(var(--heart-drift)) scale(1.18); }
+    }
+
+    .app {
+      position: relative;
+      z-index: 1;
+      width: min(100%, var(--app-max-width));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .phone-frame {
+      width: 100%;
+      max-width: var(--app-max-width);
+      padding: 14px;
+      border-radius: 48px;
+      background: linear-gradient(180deg, #2a2530, #151218);
+      box-shadow: 0 30px 80px rgba(24, 16, 24, 0.35), inset 0 1px 0 rgba(255,255,255,0.08);
+      position: relative;
+    }
+
+    .phone-frame::before {
+      content: "";
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 30px;
+      border-radius: 0 0 18px 18px;
+      background: #0f0d11;
+      z-index: 20;
+    }
+
+    .phone-frame::after {
+      content: "";
+      position: absolute;
+      right: -3px;
+      top: 150px;
+      width: 3px;
+      height: 88px;
+      border-radius: 3px;
+      background: rgba(255,255,255,0.12);
+      box-shadow: 0 110px 0 rgba(255,255,255,0.08), 0 -80px 0 rgba(255,255,255,0.08);
+    }
+
+    .screen {
+      background: transparent;
+      border-radius: 38px;
+      overflow: hidden;
+      min-height: var(--iphone15-height);
+      min-height: 100dvh;
+      position: relative;
+    }
+
+    .card {
+      backdrop-filter: blur(14px);
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.86);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      padding: calc(var(--safe-top) + 6px) 22px calc(var(--safe-bottom) + 8px);
+      min-height: var(--iphone15-height);
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .glow {
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(255,199,216,0.55), rgba(255,199,216,0));
+      top: -90px;
+      right: -100px;
+      pointer-events: none;
+    }
+
+    .statusbar {
+      position: absolute;
+      top: 14px;
+      left: 18px;
+      right: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 15;
+      color: #6d5663;
+      font-weight: 800;
+      font-size: 14px;
+      pointer-events: none;
+    }
+
+    .status-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+    }
+
+    .signal {
+      display: inline-flex;
+      align-items: end;
+      gap: 2px;
+      height: 12px;
+    }
+
+    .signal span {
+      display: block;
+      width: 3px;
+      background: #6d5663;
+      border-radius: 999px;
+    }
+
+    .signal span:nth-child(1) { height: 4px; opacity: 0.5; }
+    .signal span:nth-child(2) { height: 6px; opacity: 0.65; }
+    .signal span:nth-child(3) { height: 8px; opacity: 0.8; }
+    .signal span:nth-child(4) { height: 10px; }
+
+    .battery {
+      width: 24px;
+      height: 12px;
+      border: 1.8px solid #6d5663;
+      border-radius: 4px;
+      position: relative;
+    }
+
+    .battery::after {
+      content: "";
+      position: absolute;
+      right: -3.5px;
+      top: 3px;
+      width: 2px;
+      height: 4px;
+      background: #6d5663;
+      border-radius: 1px;
+    }
+
+    .battery-level {
+      position: absolute;
+      left: 1.5px;
+      top: 1.5px;
+      bottom: 1.5px;
+      width: 76%;
+      background: #6d5663;
+      border-radius: 2px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.78);
+      color: var(--muted);
+      font-size: 13px;
+      border: 1px solid rgba(255, 199, 216, 0.48);
+      box-shadow: 0 8px 24px rgba(255, 144, 180, 0.08);
+    }
+
+    .sound-btn {
+      border: none;
+      background: rgba(255,255,255,0.84);
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-weight: 700;
+      box-shadow: 0 8px 24px rgba(255, 144, 180, 0.08);
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      flex: 1;
+      text-align: center;
+      padding: 4px 6px 12px;
+      animation: fadeIn 520ms ease;
+    }
+
+    .emoji {
+      font-size: 40px;
+      margin-bottom: 14px;
+    }
+
+    .title {
+      font-size: clamp(28px, 5vw, 38px);
+      line-height: 1.12;
+      margin: 0 0 10px;
+      font-weight: 800;
+      color: #6b4f5e;
+      white-space: pre-line;
+    }
+
+    .subtitle {
+      margin: 0 auto;
+      max-width: 330px;
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--muted);
+      white-space: pre-line;
+    }
+
+    .envelope-wrap {
+      width: 100%;
+      max-width: 330px;
+      margin: 10px auto 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .envelope-scene {
+      position: relative;
+      width: 290px;
+      height: 230px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      filter: drop-shadow(0 18px 30px rgba(255,144,180,0.12));
+    }
+
+    .sparkle {
+      position: absolute;
+      font-size: 16px;
+      opacity: 0;
+      animation: sparkleFloat 2.2s ease-in-out infinite;
+      color: #ffd46e;
+      text-shadow: 0 0 12px rgba(255,212,110,0.4);
+      pointer-events: none;
+    }
+
+    .sparkle:nth-child(1) { top: 18px; left: 28px; animation-delay: 0.1s; }
+    .sparkle:nth-child(2) { top: 30px; right: 32px; animation-delay: 0.7s; }
+    .sparkle:nth-child(3) { bottom: 44px; left: 18px; animation-delay: 1.1s; }
+    .sparkle:nth-child(4) { bottom: 30px; right: 20px; animation-delay: 1.6s; }
+
+    @keyframes sparkleFloat {
+      0%, 100% { opacity: 0; transform: translateY(6px) scale(0.8) rotate(0deg); }
+      50% { opacity: 1; transform: translateY(-8px) scale(1.08) rotate(12deg); }
+    }
+
+    .envelope {
+      position: relative;
+      width: 250px;
+      height: 168px;
+      cursor: pointer;
+      perspective: 1200px;
+      transform-style: preserve-3d;
+      transition: transform 500ms ease;
+      animation: envelopeFloat 3.4s ease-in-out infinite;
+    }
+
+    @keyframes envelopeFloat {
+      0%, 100% { transform: translateY(0px) rotate(-1deg); }
+      50% { transform: translateY(-8px) rotate(1deg); }
+    }
+
+    .envelope:hover {
+      transform: translateY(-3px) scale(1.01);
+    }
+
+    .envelope-back {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, #fff4f8, #ffdbe7);
+      border-radius: 18px;
+      box-shadow: 0 18px 35px rgba(255, 144, 180, 0.18);
+      overflow: hidden;
+    }
+
+    .envelope-back::before,
+    .envelope-back::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      width: 0;
+      height: 0;
+      border-style: solid;
+    }
+
+    .envelope-back::before {
+      border-width: 84px 125px 0 125px;
+      border-color: #ffc8d8 transparent transparent transparent;
+      top: 0;
+      z-index: 1;
+    }
+
+    .envelope-back::after {
+      border-width: 0 125px 92px 125px;
+      border-color: transparent transparent #ffd4e2 transparent;
+      bottom: 0;
+      z-index: 3;
+    }
+
+    .letter {
+      position: absolute;
+      left: 50%;
+      bottom: 14px;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 128px;
+      background: linear-gradient(180deg, #fffefe, #fff8fb);
+      border-radius: 16px;
+      padding: 16px 14px;
+      box-shadow: 0 12px 24px rgba(255, 144, 180, 0.12);
+      z-index: 2;
+      transition: transform 900ms cubic-bezier(.22,.9,.23,1), bottom 900ms cubic-bezier(.22,.9,.23,1), opacity 600ms ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 10px;
+      overflow: hidden;
+    }
+
+    .letter::after {
+      content: "";
+      position: absolute;
+      inset: -20% auto auto -10%;
+      width: 60%;
+      height: 180%;
+      background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.65), rgba(255,255,255,0));
+      transform: rotate(18deg) translateX(-180%);
+      transition: transform 1000ms ease;
+      pointer-events: none;
+    }
+
+    .letter-line {
+      height: 10px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #ffd9e5, #ffeaf1);
+    }
+
+    .flap {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      margin: auto;
+      width: 0;
+      height: 0;
+      border-left: 125px solid transparent;
+      border-right: 125px solid transparent;
+      border-top: 86px solid #ffbdd1;
+      transform-origin: top center;
+      transition: transform 950ms cubic-bezier(.22,.9,.23,1);
+      z-index: 4;
+      filter: drop-shadow(0 6px 10px rgba(255,144,180,0.12));
+    }
+
+    .seal {
+      position: absolute;
+      left: 50%;
+      top: 64px;
+      transform: translateX(-50%);
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ff8fb4, #ffbcd1);
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 18px;
+      box-shadow: 0 10px 18px rgba(255,144,180,0.25);
+      transition: opacity 350ms ease, transform 500ms ease;
+    }
+
+    .envelope.open .flap { transform: rotateX(180deg) translateY(-4px); }
+    .envelope.open .letter { bottom: 62px; transform: translateX(-50%) translateY(-36px) scale(1.02); }
+    .envelope.open .letter::after { transform: rotate(18deg) translateX(360%); }
+    .envelope.open .seal { opacity: 0; transform: translateX(-50%) scale(0.7); }
+
+    .hint {
+      color: #a38694;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .photo-frame {
+      width: 100%;
+      max-width: 330px;
+      margin: 10px auto 18px;
+      padding: 12px;
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,243,247,0.9));
+      box-shadow: 0 18px 36px rgba(255, 144, 180, 0.12);
+      border: 1px solid rgba(255, 199, 216, 0.38);
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .photo-box {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1.15;
+      border-radius: 22px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #ffe3ec, #fff4f8);
+      border: 1px solid rgba(255,255,255,0.85);
+    }
+
+    .photo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .caption {
+      margin-top: 12px;
+      font-size: 13px;
+      color: #a0818f;
+      line-height: 1.7;
+      white-space: pre-line;
+    }
+
+    .flower-wrap {
+      position: relative;
+      width: 180px;
+      height: 180px;
+      margin: 8px auto 14px;
+    }
+
+    .flower-core {
+      position: absolute;
+      inset: 50% auto auto 50%;
+      width: 32px;
+      height: 32px;
+      background: #ffd46e;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 0 10px rgba(255, 212, 110, 0.18);
+      z-index: 2;
+    }
+
+    .petal-flower {
+      position: absolute;
+      width: 58px;
+      height: 58px;
+      background: linear-gradient(145deg, #ffe0ea, #ffb8cd);
+      border-radius: 70% 70% 0 70%;
+      left: 50%;
+      top: 50%;
+      transform-origin: 0 0;
+      opacity: 0;
+      animation: bloom 900ms ease forwards;
+    }
+
+    .petal-flower:nth-child(1) { transform: translate(-50%, -50%) rotate(0deg) translateY(-46px); animation-delay: 120ms; }
+    .petal-flower:nth-child(2) { transform: translate(-50%, -50%) rotate(45deg) translateY(-46px); animation-delay: 220ms; }
+    .petal-flower:nth-child(3) { transform: translate(-50%, -50%) rotate(90deg) translateY(-46px); animation-delay: 320ms; }
+    .petal-flower:nth-child(4) { transform: translate(-50%, -50%) rotate(135deg) translateY(-46px); animation-delay: 420ms; }
+    .petal-flower:nth-child(5) { transform: translate(-50%, -50%) rotate(180deg) translateY(-46px); animation-delay: 520ms; }
+    .petal-flower:nth-child(6) { transform: translate(-50%, -50%) rotate(225deg) translateY(-46px); animation-delay: 620ms; }
+    .petal-flower:nth-child(7) { transform: translate(-50%, -50%) rotate(270deg) translateY(-46px); animation-delay: 720ms; }
+    .petal-flower:nth-child(8) { transform: translate(-50%, -50%) rotate(315deg) translateY(-46px); animation-delay: 820ms; }
+
+    @keyframes bloom {
+      0% { opacity: 0; filter: blur(8px); }
+      100% { opacity: 1; filter: blur(0); }
+    }
+
+    .map {
+      width: 100%;
+      max-width: 340px;
+      margin: 8px auto 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,245,248,0.84));
+      border: 1px solid rgba(255, 199, 216, 0.45);
+      border-radius: 24px;
+      padding: 18px 16px;
+      position: relative;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.5);
+    }
+
+    .map-line {
+      position: absolute;
+      left: 42px;
+      right: 42px;
+      top: 50%;
+      border-top: 2px dashed rgba(255,144,180,0.45);
+      transform: translateY(-50%);
+    }
+
+    .location {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #ff9fbd;
+      box-shadow: 0 0 0 8px rgba(255,159,189,0.12);
+      position: relative;
+      z-index: 2;
+    }
+
+    .travel-dot {
+      position: absolute;
+      top: 50%;
+      left: 20%;
+      transform: translate(-50%, -50%);
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ff8fb4, #ffd46e);
+      box-shadow: 0 0 0 10px rgba(255, 144, 180, 0.12);
+      animation: travel 2.6s ease-in-out infinite alternate;
+      z-index: 3;
+    }
+
+    @keyframes travel {
+      from { left: 18%; }
+      to { left: 82%; }
+    }
+
+    .list {
+      text-align: left;
+      margin: 20px auto 0;
+      max-width: 320px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .list-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      background: rgba(255,255,255,0.66);
+      border: 1px solid rgba(255, 199, 216, 0.35);
+      padding: 12px 14px;
+      border-radius: 18px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .list-item span:first-child {
+      font-size: 18px;
+      line-height: 1.2;
+    }
+
+    .voucher {
+      margin: 8px auto 0;
+      width: 100%;
+      max-width: 330px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(255, 236, 242, 0.96));
+      border: 2px dashed rgba(255, 144, 180, 0.5);
+      border-radius: 26px;
+      padding: 24px 18px;
+      box-shadow: 0 18px 40px rgba(255, 144, 180, 0.12);
+      position: relative;
+    }
+
+    .voucher::before, .voucher::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #fff4f8;
+      transform: translateY(-50%);
+      border: 1px solid rgba(255, 199, 216, 0.3);
+    }
+
+    .voucher::before { left: -10px; }
+    .voucher::after { right: -10px; }
+
+    .voucher-label {
+      font-size: 13px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #b58898;
+      margin-bottom: 10px;
+      font-weight: 800;
+    }
+
+    .voucher-title {
+      font-size: 28px;
+      font-weight: 800;
+      margin: 0;
+      color: #6b4f5e;
+    }
+
+    .voucher-sub {
+      margin: 10px 0 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    .lyrics-shell {
+      width: 100%;
+      max-width: 340px;
+      margin: 18px auto 0;
+      padding: 16px 14px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(255, 199, 216, 0.35);
+      box-shadow: 0 12px 28px rgba(255, 144, 180, 0.08);
+    }
+
+    .lyrics-label {
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #b58898;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .lyrics-track {
+      display: grid;
+      gap: 8px;
+    }
+
+    .lyrics-row {
+      min-height: 28px;
+      font-size: 15px;
+      line-height: 1.6;
+      color: #c7b2bd;
+      transition: all 320ms ease;
+      text-align: center;
+      padding: 2px 4px;
+    }
+
+    .lyrics-row.active {
+      color: #7c5d6c;
+      font-size: 18px;
+      font-weight: 800;
+      transform: scale(1.02);
+    }
+
+    .lyrics-row.past {
+      color: #ab95a1;
+      opacity: 0.9;
+    }
+
+    .lyrics-row.future {
+      color: #d7c4cc;
+      opacity: 0.85;
+    }
+
+    .footer {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .progress {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .progress-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: rgba(255, 144, 180, 0.22);
+      transition: transform 200ms ease, background 200ms ease;
+    }
+
+    .progress-dot.active {
+      background: #ff90b4;
+      transform: scale(1.2);
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    button.action {
+      border: none;
+      border-radius: 999px;
+      padding: 14px 18px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 180ms ease, box-shadow 180ms ease, opacity 180ms ease;
+    }
+
+    button.action:hover { transform: translateY(-1px); }
+    button.action:active { transform: translateY(1px); }
+
+    .primary {
+      background: linear-gradient(135deg, var(--primary), #ffb8ce);
+      color: white;
+      box-shadow: 0 16px 30px rgba(255, 144, 180, 0.28);
+    }
+
+    .ghost {
+      background: rgba(255,255,255,0.88);
+      color: var(--muted);
+      border: 1px solid rgba(255, 199, 216, 0.45);
+    }
+
+    .signature {
+      margin-top: 20px;
+      font-weight: 800;
+      color: #7c5d6c;
+    }
+
+    .tiny {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #a68997;
+      line-height: 1.7;
+      white-space: pre-line;
+    }
+
+    .secret {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.62);
+      color: var(--muted);
+      border: 1px solid rgba(255, 199, 216, 0.35);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    .home-indicator {
+      position: absolute;
+      left: 50%;
+      bottom: 8px;
+      transform: translateX(-50%);
+      width: 138px;
+      height: 5px;
+      border-radius: 999px;
+      background: rgba(92, 72, 83, 0.28);
+      z-index: 15;
+      pointer-events: none;
+    }
+
+    .intro {
+      position: absolute;
+      inset: 0;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(180deg, rgba(255,250,253,0.96), rgba(255,241,247,0.98));
+      transition: opacity 700ms ease, visibility 700ms ease;
+    }
+
+    .intro.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .intro-card {
+      text-align: center;
+      padding: 28px 22px;
+    }
+
+    .intro-flower {
+      font-size: 42px;
+      animation: pulse 1.8s ease-in-out infinite;
+      margin-bottom: 14px;
+    }
+
+    @keyframes pulse {
+      0%,100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.08); opacity: 1; }
+    }
+
+    .intro-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: #6b4f5e;
+      margin: 0 0 8px;
+    }
+
+    .intro-sub {
+      font-size: 15px;
+      color: #9a7f8c;
+      margin: 0;
+    }
+
+    .intro-dots {
+      margin-top: 16px;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .intro-dots span {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #ffb3cb;
+      animation: dots 1s infinite ease-in-out;
+    }
+
+    .intro-dots span:nth-child(2) { animation-delay: 0.15s; }
+    .intro-dots span:nth-child(3) { animation-delay: 0.3s; }
+
+    @keyframes dots {
+      0%, 100% { transform: scale(0.8); opacity: 0.4; }
+      50% { transform: scale(1.2); opacity: 1; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 520px) {
+      :root {
+        --app-max-width: 100vw;
+      }
+
+      html, body {
+        width: 100%;
+        overflow-x: hidden;
+      }
+
+      body {
+        padding: 0;
+        min-height: 100dvh;
+      }
+
+      .app {
+        width: 100vw;
+        min-height: 100dvh;
+      }
+
+      .phone-frame {
+        max-width: 100vw;
+        width: 100vw;
+        min-height: 100dvh;
+        padding: 0;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .phone-frame::before,
+      .phone-frame::after {
+        display: none;
+      }
+
+      .screen {
+        min-height: 100dvh;
+        border-radius: 0;
+      }
+
+      .card {
+        min-height: 100dvh;
+        padding: calc(var(--safe-top) + 6px) 16px calc(var(--safe-bottom) + 10px);
+        border-radius: 0;
+        border: none;
+      }
+
+      .statusbar {
+        top: max(10px, env(safe-area-inset-top));
+        left: 16px;
+        right: 16px;
+      }
+
+      .topbar {
+        margin-top: 2px;
+      }
+
+      .actions { flex-direction: column; }
+      button.action { width: 100%; }
+      .photo-grid { grid-template-columns: 1fr; }
+      .lyrics-row.active { font-size: 17px; }
+      .home-indicator {
+        bottom: max(8px, env(safe-area-inset-bottom));
+      }
+    }
+
+    @media (min-width: 390px) and (max-width: 430px) {
+      .app,
+      .phone-frame,
+      .screen,
+      .card {
+        width: 100%;
+      }
+
+      .card {
+        min-height: 100dvh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="petals" id="petals"></div>
+  <div class="hearts-layer" id="heartsLayer"></div>
+
+  <div class="app">
+    <div class="phone-frame">
+      <div class="screen">
+        <div class="intro" id="introScreen">
+          <div class="intro-card">
+            <div class="intro-flower">🌸</div>
+            <h2 class="intro-title">Hanna's Card</h2>
+            <p class="intro-sub">Đang mở món quà nhỏ từ Tuấn Anh</p>
+            <div class="intro-dots"><span></span><span></span><span></span></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="statusbar">
+            <div id="statusTime">21:41</div>
+            <div class="status-right">
+              <div>5G</div>
+              <div class="signal"><span></span><span></span><span></span><span></span></div>
+              <div class="battery"><div class="battery-level"></div></div>
+            </div>
+          </div>
+
+          <div class="glow"></div>
+
+          <div>
+            <div class="topbar">
+              <div class="badge">🌸 A little flower for Hanna</div>
+              <button id="musicBtn" class="sound-btn">♪ Bật nhạc</button>
+            </div>
+
+            <div id="content" class="content"></div>
+          </div>
+
+          <div class="footer">
+            <div class="progress" id="progress"></div>
+            <div class="actions">
+              <button class="action ghost" id="backBtn">Quay lại</button>
+              <button class="action primary" id="nextBtn">Mở tiếp</button>
+            </div>
+          </div>
+
+          <div class="home-indicator"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const PHOTO_1 = 'hana.jpg';
+    const PHOTO_2 = '2ng.jpg';
+    const SONG_FILE = 'song.mp3';
+
+    const LYRICS = [
+      { t: 0, text: '' },
+      { t: 22, text: 'Nắng nghiêng mình trên bến đò năm nào' },
+      { t: 25, text: 'Nơi tiễn bước người đi' },
+      { t: 27, text: 'Gió lay nhẹ mang đôi mình tương phùng' },
+      { t: 30, text: 'Sau bao năm biệt ly' },
+      { t: 31, text: 'Vẫn đôi hàng mi biết cười như lúc thiếu thời, người ơi' },
+      { t: 40, text: 'Đã qua rồi những tháng ngày mơ mộng' },
+      { t: 43, text: 'Xuôi theo con thuyền xưa' },
+      { t: 44.5, text: 'Trái tim từ lâu chẳng còn rung động' },
+      { t: 47, text: 'Bỗng thức giấc lần nữa' },
+      { t: 48.5, text: 'Khiến anh được phép dại khờ' },
+      { t: 52, text: 'Biết nhớ, biết chờ đợi, ngẩn ngơ vì…' },
+      { t: 57, text: 'Lòng anh ngân tiếng chuông' },
+      { t: 58, text: 'Vang rộn như pháo hoa' },
+      { t: 61, text: 'Hoà tiếng đàn tang tính' },
+      { t: 62.5, text: 'Giao duyên tình hai chúng ta' },
+      { t: 65, text: 'Em vẫn nhìn anh với nụ cười dịu dàng' },
+      { t: 68, text: 'Tinh khôi của ngày đôi mươi' },
+      { t: 70, text: 'Thì ra tháng năm chẳng thể làm phai phôi' },
+      { t: 73.5, text: 'Mộng mơ thiếu thời' },
+      { t: 75, text: 'Người đã đánh thức trái tim còn vương khúc ca' },
+      { t: 79, text: 'Để anh tìm thấy những đắm say' },
+      { t: 81, text: 'Hồn nhiên đã xa' },
+      { t: 83, text: 'Dù mai này nhỡ chúng ta chẳng thể' },
+      { t: 86, text: 'Cùng chung đôi với nhau' },
+      { t: 88, text: 'Thì dù bao năm tháng sau' },
+      { t: 90, text: 'Tình cảm vẫn khắc sâu đậm sâu' },
+      { t: 93, text: 'Thanh tân như phút ban đầu…' },
+      { t: 95, text: 'Bao nhiêu lâu rồi nhỉ' },
+      { t: 97, text: 'Mà sao tưởng như chỉ vừa đây thôi' },
+      { t: 100, text: 'Bao nhiêu lâu rồi nhỉ' },
+      { t: 102, text: 'Từ khi mình còn dễ khóc, dễ cười' },
+      { t: 104, text: 'Anh đã hình dung về chính khoảnh khắc mình yêu biết mấy' },
+      { t: 108, text: 'Mà bây giờ bất ngờ chẳng biết bắt đầu từ đâu đây…' },
+      { t: 115, text: 'Trở lại như đứa bé con thuở nào' },
+      { t: 120, text: 'Bầu trời những lấp lánh rạng ngời trong mắt em' },
+      { t: 123, text: 'Vẫn y nguyên, vẫn thân thuộc như thế' },
+      { t: 126, text: 'Để khi ta mới gặp lại…' },
+      { t: 129, text: 'Lòng anh ngân tiếng chuông' },
+      { t: 130, text: 'Vang rộn như pháo hoa' },
+      { t: 133, text: 'Hoà tiếng đàn tang tính' },
+      { t: 134, text: 'Giao duyên tình hai chúng ta' },
+      { t: 137, text: 'Em vẫn nhìn anh với nụ cười dịu dàng' },
+      { t: 140, text: 'Tinh khôi của ngày đôi mươi' },
+      { t: 142, text: 'Thì ra tháng năm chẳng thể làm phai phôi' },
+      { t: 145, text: 'Mộng mơ thiếu thời' },
+      { t: 147, text: 'Người đã đánh thức trái tim còn vương khúc ca' },
+      { t: 150, text: 'Để anh tìm thấy những đắm say' },
+      { t: 153, text: 'Hồn nhiên đã xa' },
+      { t: 155, text: 'Dù mai này nhỡ chúng ta chẳng thể' },
+      { t: 158, text: 'Cùng chung đôi với nhau' },
+      { t: 160, text: 'Thì dù bao năm tháng sau' },
+      { t: 161.8, text: 'Tình cảm vẫn khắc sâu đậm sâu' },
+      { t: 165, text: 'Thanh tân như phút ban đầu…' },
+      { t: 169, text: 'Thanh tân không chút phai màu' },
+      { t: 173, text: 'Thanh tân dù cho ngày sau chúng ta chẳng cùng chung đôi với nhau' },
+      { t: 180, text: 'Tình cảm vẫn khắc sâu đậm sâu' },
+      { t: 182, text: 'Thanh tân như phút ban đầu.' }
+    ];
+
+    const CHORUS_RANGES = [
+      [57, 93.5],
+      [129, 165.5],
+      [169, 183]
+    ];
+
+    const steps = [
+      {
+        title: 'Hello Hanna',
+        emoji: '🌸',
+        subtitle: 'Nếu cậu đang đọc được dòng này\nnghĩa là cậu đã mở được\nmón quà 8/3 nhỏ xíu của tớ rồi.',
+        nextText: 'Mở tiếp'
+      },
+      {
+        title: 'Có một phong thư chờ cậu',
+        custom: 'envelope',
+        subtitle: 'Tớ không gửi được hoa thật.\nNên gói một chút dễ thương\nvào chiếc phong thư này.\nChạm vào phong thư để mở nhé.'
+      },
+      {
+        title: 'Một góc rất dễ thương',
+        custom: 'photos',
+        subtitle: 'Tớ để lại một góc nhỏ ở đây\nđể lưu những tấm hình đẹp nhất.',
+        caption: ''
+      },
+      {
+        title: 'Một hành trình nhỏ',
+        custom: 'map',
+        subtitle: 'Có một món quà nhỏ\nđang đi từ Việt Nam\nđến chỗ Hanna.'
+      },
+      {
+        title: 'Một bông hoa online',
+        custom: 'flower',
+        subtitle: 'Tớ định mua hoa thật.\nNhưng khoảng cách xa quá…\nNên đành gửi cậu\nmột bông hoa online vậy 🌷'
+      },
+      {
+        title: 'Điều tớ mong cho cậu hôm nay',
+        custom: 'list',
+        items: [
+          ['🌸', 'Cậu đã ăn gì đó ngon ngon.'],
+          ['🌸', 'Cậu đã cười ít nhất một lần.'],
+          ['🌸', 'Và hôm nay không quá mệt mỏi.']
+        ]
+      },
+      {
+        title: 'Một điều rất thật',
+        emoji: '🤍',
+        subtitle: 'Nếu hôm nay có điều gì làm cậu buồn,\nthì nhớ rằng ở Việt Nam\nvẫn có một người\nluôn đứng về phía cậu.'
+      },
+      {
+        title: 'Open your gift',
+        custom: 'voucher',
+        subtitle: 'Món quà này không to lắm.\nNhưng hy vọng đủ để đổi lấy\nmột nụ cười của Hanna.',
+        hearts: true,
+        showLyrics: true,
+        nextText: 'Nhận quà'
+      },
+      {
+        title: 'Happy Women\'s Day, Hanna',
+        emoji: '💐',
+        subtitle: 'Cảm ơn vì đã xuất hiện\ntrong cuộc sống của tớ,\nvà làm cho những cuộc trò chuyện bình thường\ntrở nên dễ thương hơn một chút.',
+        signature: '– Tuấn Anh',
+        tiny: 'P/S: voucher cà phê ở trên\nkhông có hạn sử dụng đâu nhé.',
+        showLyrics: true,
+        nextText: 'Bí mật nhỏ'
+      },
+      {
+        title: 'Secret message',
+        emoji: '🫶',
+        subtitle: 'Nếu Hanna bấm tới tận đây,\nnghĩa là cậu rất đáng yêu\nvà cũng rất tò mò nữa.',
+        secret: 'Điều tớ muốn gửi nhất trong ngày 8/3 là:\nMong cậu luôn vui, luôn được yêu thương, và luôn gặp những điều thật dịu dàng.',
+        signature: 'From Tuấn Anh',
+        showLyrics: true
+      }
+    ];
+
+    let current = 0;
+    let envelopeOpened = false;
+    let lyricsRAF = null;
+    let currentLyricIndex = -1;
+    let autoMovedAfterEnvelope = false;
+    let beatInterval = null;
+    let isPlaying = false;
+
+    const content = document.getElementById('content');
+    const progress = document.getElementById('progress');
+    const nextBtn = document.getElementById('nextBtn');
+    const backBtn = document.getElementById('backBtn');
+    const musicBtn = document.getElementById('musicBtn');
+    const introScreen = document.getElementById('introScreen');
+    const statusTime = document.getElementById('statusTime');
+
+    const audio = new Audio(SONG_FILE);
+    audio.loop = false;
+    audio.volume = 0.58;
+
+    function updateStatusTime() {
+      const now = new Date();
+      const hh = String(now.getHours()).padStart(2, '0');
+      const mm = String(now.getMinutes()).padStart(2, '0');
+      statusTime.textContent = `${hh}:${mm}`;
+    }
+
+    function escapeHTML(str = '') {
+      return str.replace(/[&<>\"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '\"': '&quot;', "'": '&#39;' }[m]));
+    }
+
+    function createPetals() {
+      const wrap = document.getElementById('petals');
+      for (let i = 0; i < 20; i++) {
+        const petal = document.createElement('div');
+        petal.className = 'petal';
+        petal.style.left = Math.random() * 100 + 'vw';
+        petal.style.animationDuration = 9 + Math.random() * 8 + 's';
+        petal.style.animationDelay = Math.random() * 8 + 's';
+        petal.style.setProperty('--drift', (Math.random() * 120 - 60) + 'px');
+        wrap.appendChild(petal);
+      }
+    }
+
+    function launchHearts(count = 6, bigger = false) {
+      const layer = document.getElementById('heartsLayer');
+      for (let i = 0; i < count; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.textContent = i % 3 === 0 ? '💗' : i % 3 === 1 ? '💖' : '💕';
+        heart.style.left = (16 + Math.random() * 68) + 'vw';
+        heart.style.bottom = (8 + Math.random() * 12) + 'vh';
+        heart.style.animationDelay = (Math.random() * 0.12) + 's';
+        heart.style.setProperty('--heart-drift', ((Math.random() * 140) - 70) + 'px');
+        heart.style.fontSize = (bigger ? 24 + Math.random() * 12 : 16 + Math.random() * 10) + 'px';
+        layer.appendChild(heart);
+        setTimeout(() => heart.remove(), 2600);
+      }
+    }
+
+    function isInChorus(time) {
+      return CHORUS_RANGES.some(([start, end]) => time >= start && time <= end);
+    }
+
+    function startHeartBeat() {
+      stopHeartBeat();
+      beatInterval = setInterval(() => {
+        if (!isPlaying || audio.paused) return;
+        if (isInChorus(audio.currentTime)) launchHearts(8, true);
+        else launchHearts(3, false);
+      }, 760);
+    }
+
+    function stopHeartBeat() {
+      clearInterval(beatInterval);
+      beatInterval = null;
+    }
+
+    function renderProgress() {
+      progress.innerHTML = '';
+      steps.forEach((_, i) => {
+        const dot = document.createElement('div');
+        dot.className = 'progress-dot' + (i === current ? ' active' : '');
+        progress.appendChild(dot);
+      });
+    }
+
+    function buildPhotoBox(src, label) {
+      const safeLabel = escapeHTML(label);
+      return `<div class="photo-box"><img src="${escapeHTML(src)}" alt="${safeLabel}" /></div>`;
+    }
+
+    function renderLyricsBox() {
+      return `
+        <div class="lyrics-shell">
+          <div class="lyrics-label">Now playing</div>
+          <div class="lyrics-track" id="lyricsTrack">
+            <div class="lyrics-row future" id="lyricPrev"></div>
+            <div class="lyrics-row active" id="lyricCurrent">♪</div>
+            <div class="lyrics-row future" id="lyricNext"></div>
+          </div>
+        </div>`;
+    }
+
+    function findCurrentLyricIndex(time) {
+      let idx = 0;
+      for (let i = 0; i < LYRICS.length; i++) {
+        if (time >= LYRICS[i].t) idx = i;
+        else break;
+      }
+      return idx;
+    }
+
+    function renderLyricsState(idx) {
+      const prevEl = document.getElementById('lyricPrev');
+      const curEl = document.getElementById('lyricCurrent');
+      const nextEl = document.getElementById('lyricNext');
+      if (!prevEl || !curEl || !nextEl) return;
+
+      const prev = LYRICS[idx - 1]?.text || '';
+      const currentText = LYRICS[idx]?.text || '♪';
+      const next = LYRICS[idx + 1]?.text || '';
+
+      prevEl.textContent = prev;
+      curEl.textContent = currentText;
+      nextEl.textContent = next;
+
+      prevEl.className = 'lyrics-row past';
+      curEl.className = 'lyrics-row active';
+      nextEl.className = 'lyrics-row future';
+    }
+
+    function startLyricsSync() {
+      stopLyricsSync();
+      const tick = () => {
+        if (!isPlaying || audio.paused) {
+          lyricsRAF = requestAnimationFrame(tick);
+          return;
+        }
+        if (!steps[current].showLyrics) {
+          lyricsRAF = requestAnimationFrame(tick);
+          return;
+        }
+        const idx = findCurrentLyricIndex(audio.currentTime);
+        if (idx !== currentLyricIndex) {
+          currentLyricIndex = idx;
+          renderLyricsState(idx);
+        }
+        lyricsRAF = requestAnimationFrame(tick);
+      };
+      lyricsRAF = requestAnimationFrame(tick);
+    }
+
+    function stopLyricsSync() {
+      cancelAnimationFrame(lyricsRAF);
+      lyricsRAF = null;
+    }
+
+    function startMusic() {
+      audio.play().then(() => {
+        isPlaying = true;
+        musicBtn.textContent = '♪ Tắt nhạc';
+        startHeartBeat();
+        startLyricsSync();
+      }).catch(() => {
+        musicBtn.textContent = '♪ Bật nhạc';
+      });
+    }
+
+    function stopMusic() {
+      isPlaying = false;
+      audio.pause();
+      stopHeartBeat();
+      stopLyricsSync();
+      musicBtn.textContent = '♪ Bật nhạc';
+    }
+
+    audio.addEventListener('ended', () => {
+      stopMusic();
+      currentLyricIndex = -1;
+    });
+
+    musicBtn.addEventListener('click', () => {
+      if (!isPlaying) startMusic();
+      else stopMusic();
+    });
+
+    function renderStep() {
+      const step = steps[current];
+      let html = '';
+
+      if (step.custom === 'envelope') {
+        html += `
+          <div class="envelope-wrap">
+            <div class="envelope-scene">
+              <div class="sparkle">✦</div>
+              <div class="sparkle">✦</div>
+              <div class="sparkle">✦</div>
+              <div class="sparkle">✦</div>
+              <div class="envelope ${envelopeOpened ? 'open' : ''}" id="envelopeBox">
+                <div class="envelope-back"></div>
+                <div class="letter">
+                  <div class="letter-line" style="width: 72%"></div>
+                  <div class="letter-line" style="width: 86%"></div>
+                  <div class="letter-line" style="width: 58%"></div>
+                </div>
+                <div class="flap"></div>
+                <div class="seal">❤</div>
+              </div>
+            </div>
+            <div class="hint">Chạm vào phong thư để mở</div>
+          </div>`;
+      } else if (step.custom === 'photos') {
+        html += `
+          <div class="photo-frame">
+            <div class="photo-grid">
+              ${buildPhotoBox(PHOTO_1, 'Ảnh riêng của Hanna')}
+              ${buildPhotoBox(PHOTO_2, 'Ảnh của hai người')}
+            </div>
+            <div class="caption">${step.caption}</div>
+          </div>`;
+      } else if (step.custom === 'map') {
+        html += `
+          <div class="map">
+            <div class="map-line"></div>
+            <div class="travel-dot"></div>
+            <div class="location">
+              <div style="display:flex; gap:8px; align-items:center;"><div class="dot"></div><span>Vietnam</span></div>
+              <div style="display:flex; gap:8px; align-items:center;"><span>Hanna</span><div class="dot"></div></div>
+            </div>
+          </div>`;
+      } else if (step.custom === 'flower') {
+        html += `
+          <div class="flower-wrap">
+            <div class="petal-flower"></div>
+            <div class="petal-flower"></div>
+            <div class="petal-flower"></div>
+            <div class="petal-flower"></div>
+            <div class="petal-flower"></div>
+            <div class="petal-flower"></div>
+            <div class="petal-flower"></div>
+            <div class="petal-flower"></div>
+            <div class="flower-core"></div>
+          </div>`;
+      } else if (step.custom === 'list') {
+        html += `<div class="emoji">🌷</div>`;
+      } else if (step.custom === 'voucher') {
+        html += `
+          <div class="voucher">
+            <div class="voucher-label">Hanna Voucher</div>
+            <h3 class="voucher-title">☕ 1 ly cà phê</h3>
+            <p class="voucher-sub">Có hiệu lực khi Hanna về Việt Nam.<br/>Không giới hạn thời gian sử dụng.</p>
+            <p class="tiny" style="margin-top: 14px;">Nhà tài trợ độc quyền:<br/><strong>Tuấn Anh</strong></p>
+          </div>`;
+      } else {
+        html += `<div class="emoji">${step.emoji || '🌸'}</div>`;
+      }
+
+      html += `<h1 class="title">${step.title}</h1>`;
+      if (step.subtitle) html += `<p class="subtitle">${step.subtitle}</p>`;
+
+      if (step.custom === 'list') {
+        html += `<div class="list">${step.items.map(([icon, text]) => `<div class="list-item"><span>${icon}</span><span>${text}</span></div>`).join('')}</div>`;
+      }
+
+      if (step.secret) html += `<div class="secret">${step.secret.replace(/\n/g, '<br/>')}</div>`;
+      if (step.signature) html += `<div class="signature">${step.signature}</div>`;
+      if (step.tiny) html += `<div class="tiny">${step.tiny}</div>`;
+      if (step.showLyrics) html += renderLyricsBox();
+
+      content.innerHTML = html;
+      nextBtn.textContent = step.nextText || (current === steps.length - 1 ? 'Xem lại từ đầu' : 'Mở tiếp');
+      backBtn.style.opacity = current === 0 ? '0.45' : '1';
+      backBtn.disabled = current === 0;
+      renderProgress();
+
+      if (step.showLyrics) {
+        const idx = isPlaying ? findCurrentLyricIndex(audio.currentTime) : 0;
+        currentLyricIndex = idx;
+        renderLyricsState(idx);
+      }
+
+      if (step.custom === 'envelope') {
+        const box = document.getElementById('envelopeBox');
+        box?.addEventListener('click', () => {
+          envelopeOpened = !envelopeOpened;
+          box.classList.toggle('open', envelopeOpened);
+          if (envelopeOpened) {
+            launchHearts(12, true);
+            if (!isPlaying) startMusic();
+            if (!autoMovedAfterEnvelope) {
+              autoMovedAfterEnvelope = true;
+              setTimeout(() => {
+                current = 2;
+                renderStep();
+              }, 1450);
+            }
+          }
+        });
+      }
+
+      if (step.hearts) {
+        setTimeout(() => launchHearts(20, true), 120);
+      }
+    }
+
+    nextBtn.addEventListener('click', () => {
+      if (current < steps.length - 1) current += 1;
+      else current = 0;
+      renderStep();
+    });
+
+    backBtn.addEventListener('click', () => {
+      if (current > 0) {
+        current -= 1;
+        renderStep();
+      }
+    });
+
+    updateStatusTime();
+    setInterval(updateStatusTime, 15000);
+    createPetals();
+    renderStep();
+
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        introScreen.classList.add('hidden');
+      }, 1700);
+    });
+  </script>
+</body>
+</html>
